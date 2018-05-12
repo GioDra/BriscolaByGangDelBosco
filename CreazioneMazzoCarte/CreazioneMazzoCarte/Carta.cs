@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CreazioneMazzoCarte
 {
     //Classe per la crezione di una carta base
-    class Carta
+    
+    class Carta 
     {
         private int value { get; set; }             //Valore nominale della carta
         private String name { get; set; }           //Nome della carta
