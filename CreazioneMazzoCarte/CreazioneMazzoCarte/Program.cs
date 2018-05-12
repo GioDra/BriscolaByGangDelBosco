@@ -14,7 +14,36 @@ namespace CreazioneMazzoCarte
         {
             List<Carta> CardsPack = new List<Carta>();
             CreaMazzo(CardsPack);
+            Carta c = new Carta();
+
+            for(int i=0; i<CardsPack.Count();i++)
+            {
+                c = CardsPack[i];
+                if (c.getValue()==3)
+                {
+                    c.setValue(11);
+                    CardsPack[i] = c;
+
+                }
+
+                if (c.getValue() == 1)
+                {
+                    c.setValue(12);
+                    CardsPack[i] = c;
+                }
+                i++;
+            }
+
+            Mescola(CardsPack);
+
+            //Stampa provvisoria per controllo set di carte
+            foreach (Carta ci in CardsPack)
+            {
+                Console.WriteLine(ci.ToString());
+            }
+            Console.ReadLine();
         }
+
         static void CreaMazzo(List<Carta> CardsPack)
         {
             enumSeed.seed temp_seed = enumSeed.seed.B;
@@ -65,7 +94,23 @@ namespace CreazioneMazzoCarte
             //{
             //    Console.WriteLine(c.ToString());
             //}
-            Console.ReadLine();
+            //Console.ReadLine();
+        }
+
+        static void Mescola(List<Carta> CardsPack)
+        {
+            Random rnd = new Random();
+            Carta c = new Carta();
+            int indiceA;
+            int indiceB;
+            for (int i = 0; i < 400; i++)
+            {
+                indiceA = rnd.Next(0, (CardsPack.Count() - 1));
+                c = CardsPack[indiceA];
+                indiceB = rnd.Next(0, (CardsPack.Count() - 1));
+                CardsPack[indiceA] = CardsPack[indiceB];
+                CardsPack[indiceB] = c;
+            }
         }
 
     }

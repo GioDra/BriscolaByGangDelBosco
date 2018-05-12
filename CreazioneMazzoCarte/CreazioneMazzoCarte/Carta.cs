@@ -11,9 +11,19 @@ namespace CreazioneMazzoCarte
     
     class Carta 
     {
-        private int value { get; set; }             //Valore nominale della carta
+        private int value;             //Valore nominale della carta
         private String name { get; set; }           //Nome della carta
         private enumSeed.seed seed { get; set; }    //Seme della carta
+
+
+        public int getValue()
+        {
+            return value;
+        }
+        public void setValue(int value)
+        {
+            this.value = value;
+        }
 
         public Carta()
         {
@@ -28,7 +38,7 @@ namespace CreazioneMazzoCarte
 
         public override string ToString()
         {
-            return /*value.ToString()+" "+*/name+" "+seed.ToString();
+            return value.ToString()+" "+name+" "+seed.ToString();
         }
     }
 }
