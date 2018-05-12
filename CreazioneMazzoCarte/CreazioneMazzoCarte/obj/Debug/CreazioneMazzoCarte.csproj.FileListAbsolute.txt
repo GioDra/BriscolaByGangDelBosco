@@ -1,0 +1,7 @@
+C:\Users\Takasu97\source\repos\CreazioneMazzoCarte\CreazioneMazzoCarte\bin\Debug\CreazioneMazzoCarte.exe.config
+C:\Users\Takasu97\source\repos\CreazioneMazzoCarte\CreazioneMazzoCarte\bin\Debug\CreazioneMazzoCarte.exe
+C:\Users\Takasu97\source\repos\CreazioneMazzoCarte\CreazioneMazzoCarte\bin\Debug\CreazioneMazzoCarte.pdb
+C:\Users\Takasu97\source\repos\CreazioneMazzoCarte\CreazioneMazzoCarte\obj\Debug\CreazioneMazzoCarte.csprojResolveAssemblyReference.cache
+C:\Users\Takasu97\source\repos\CreazioneMazzoCarte\CreazioneMazzoCarte\obj\Debug\CreazioneMazzoCarte.csproj.CoreCompileInputs.cache
+C:\Users\Takasu97\source\repos\CreazioneMazzoCarte\CreazioneMazzoCarte\obj\Debug\CreazioneMazzoCarte.exe
+C:\Users\Takasu97\source\repos\CreazioneMazzoCarte\CreazioneMazzoCarte\obj\Debug\CreazioneMazzoCarte.pdb
