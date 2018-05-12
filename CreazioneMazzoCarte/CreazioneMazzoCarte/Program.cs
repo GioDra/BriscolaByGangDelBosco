@@ -9,14 +9,19 @@ namespace CreazioneMazzoCarte
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             List<Carta> CardsPack = new List<Carta>();
+            CreaMazzo(CardsPack);
+        }
+        static void CreaMazzo(List<Carta> CardsPack)
+        {
             enumSeed.seed temp_seed = enumSeed.seed.B;
             String name = "";
-            
+
             //Cicli per la creazione di n carte per differenti semi
-            for (int i=0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 switch (i)
                 {
@@ -31,7 +36,7 @@ namespace CreazioneMazzoCarte
                         break;
 
                 }
-                for(int k=1; k <= 10; k++)
+                for (int k = 1; k <= 10; k++)
                 {
                     switch (k)
                     {
@@ -55,13 +60,13 @@ namespace CreazioneMazzoCarte
                 }
             }
 
-            //Stampa provvisoria per controllo set di carte
-            foreach(Carta c in CardsPack)
-            {
-                Console.WriteLine(c.ToString());
-            }
-            
+            ////Stampa provvisoria per controllo set di carte
+            //foreach(Carta c in CardsPack)
+            //{
+            //    Console.WriteLine(c.ToString());
+            //}
             Console.ReadLine();
         }
+
     }
 }
