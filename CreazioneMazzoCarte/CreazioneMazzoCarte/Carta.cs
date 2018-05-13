@@ -11,9 +11,9 @@ namespace CreazioneMazzoCarte
     
     class Carta 
     {
-        private int value;             //Valore nominale della carta
-        private String name { get; set; }           //Nome della carta
-        private enumSeed.seed seed { get; set; }    //Seme della carta
+        protected int value;             //Valore nominale della carta
+        protected String name { get; set; }           //Nome della carta
+        protected enumSeed.seed seed { get; set; }    //Seme della carta
 
 
         public int getValue()
@@ -23,6 +23,24 @@ namespace CreazioneMazzoCarte
         public void setValue(int value)
         {
             this.value = value;
+        }
+
+        public string getName()
+        {
+            return name;
+        }
+        public void setName(string name)
+        {
+            this.name = name;
+        }
+
+        public enumSeed.seed getSeed()
+        {
+            return seed;
+        }
+        public void setSeed(enumSeed.seed value)
+        {
+            this.seed = seed;
         }
 
         public Carta()

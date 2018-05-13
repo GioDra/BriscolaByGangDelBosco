@@ -13,38 +13,20 @@ namespace CreazioneMazzoCarte
         static void Main(string[] args)
         {
             List<Carta> CardsPack = new List<Carta>();
-            CreaMazzo(CardsPack);
-            Carta c = new Carta();
+            RaccoltaCarte(CardsPack);
 
-            for(int i=0; i<CardsPack.Count();i++)
-            {
-                c = CardsPack[i];
-                if (c.getValue()==3)
-                {
-                    c.setValue(11);
-                    CardsPack[i] = c;
-
-                }
-
-                if (c.getValue() == 1)
-                {
-                    c.setValue(12);
-                    CardsPack[i] = c;
-                }
-                i++;
-            }
-
-            Mescola(CardsPack);
+            List<CartaBriscola> Mazzo = new List<CartaBriscola>();
+            CreaMazzo(CardsPack, Mazzo);
 
             //Stampa provvisoria per controllo set di carte
-            foreach (Carta ci in CardsPack)
+            foreach (Carta ci in Mazzo)
             {
                 Console.WriteLine(ci.ToString());
             }
             Console.ReadLine();
         }
 
-        static void CreaMazzo(List<Carta> CardsPack)
+        static void RaccoltaCarte(List<Carta> CardsPack)
         {
             enumSeed.seed temp_seed = enumSeed.seed.B;
             String name = "";
@@ -110,6 +92,34 @@ namespace CreazioneMazzoCarte
                 indiceB = rnd.Next(0, (CardsPack.Count() - 1));
                 CardsPack[indiceA] = CardsPack[indiceB];
                 CardsPack[indiceB] = c;
+            }
+        }
+        
+        static void CreaMazzo(List<Carta> CardsPack, List<CartaBriscola> Mazzo)
+        {
+            Mescola(CardsPack);
+            foreach (Carta ci in CardsPack)
+            {
+                Mazzo.Add(new CartaBriscola(ci));
+            }
+
+            CartaBriscola c;
+            for (int i = 0; i < Mazzo.Count(); i++)
+            {
+                c = Mazzo[i];
+                if (c.getValue() == 3)
+                {
+                    c.setValue(11);
+                    Mazzo[i] = c;
+
+                }
+
+                if (c.getValue() == 1)
+                {
+                    c.setValue(12);
+                    Mazzo[i] = c;
+                }
+                i++;
             }
         }
 
