@@ -10,6 +10,16 @@ namespace CreazioneMazzoCarte
     {
         private int score;
 
+        public int getScore()
+        {
+            return score;
+        }
+
+        public CartaBriscola()
+        {
+
+        }
+
         public CartaBriscola(Carta c)
         {
             this.value = c.getValue();
@@ -39,9 +49,15 @@ namespace CreazioneMazzoCarte
             }
         }
 
+
         public override string ToString()
         {
-            return base.ToString()+" "+score;
+            return base.ToString() + " " + score;
+        }
+
+        public string StringVideo()
+        {
+            return name + " " + seed+"\t ";
         }
     }
 }

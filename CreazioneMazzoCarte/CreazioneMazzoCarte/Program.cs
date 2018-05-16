@@ -16,13 +16,15 @@ namespace CreazioneMazzoCarte
             RaccoltaCarte(CardsPack);
 
             List<CartaBriscola> Mazzo = new List<CartaBriscola>();
-            CreaMazzo(CardsPack, Mazzo);
+            //CreaMazzo(CardsPack, Mazzo);
 
-            //Stampa provvisoria per controllo set di carte
-            foreach (Carta ci in Mazzo)
-            {
-                Console.WriteLine(ci.ToString());
-            }
+            ////Stampa provvisoria per controllo set di carte
+            //foreach (Carta ci in Mazzo)
+            //{
+            //    Console.WriteLine(ci.ToString());
+            //}
+            Partita(CardsPack,Mazzo);
+
             Console.ReadLine();
         }
 
@@ -123,5 +125,29 @@ namespace CreazioneMazzoCarte
             }
         }
 
+        static void Partita(List<Carta> CardsPack, List<CartaBriscola> Mazzo)
+        {
+            CreaMazzo(CardsPack, Mazzo);
+            CartaBriscola briscola = new CartaBriscola();
+
+            int tempIndex = 0;              //Indice temporaneo
+
+            //Estrazione della briscola
+            Random rnd = new Random();
+            tempIndex = rnd.Next(0, (CardsPack.Count() - 1));
+            briscola = Mazzo[tempIndex];
+            Mazzo.RemoveAt(tempIndex);
+
+            //Inizializzazione giocatori e distribuzione carte
+            Player p1 = new Player();
+            Player p2 = new Player();
+            for(int i = 0; i < 3; i++)
+            {
+                p1.Pesca(Mazzo);
+                p2.Pesca(Mazzo);
+            }
+
+
+        }
     }
 }
