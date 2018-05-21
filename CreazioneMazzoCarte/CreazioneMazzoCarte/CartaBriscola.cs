@@ -8,7 +8,7 @@ namespace CreazioneMazzoCarte
 {
     class CartaBriscola : Carta
     {
-        private int score;
+        private int score;      //Valore del punteggio ottenibile con questa carta
 
         public int getScore()
         {

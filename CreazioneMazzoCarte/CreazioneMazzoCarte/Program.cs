@@ -137,17 +137,59 @@ namespace CreazioneMazzoCarte
             tempIndex = rnd.Next(0, (CardsPack.Count() - 1));
             briscola = Mazzo[tempIndex];
             Mazzo.RemoveAt(tempIndex);
+            Mazzo.Add(briscola);
+
+
 
             //Inizializzazione giocatori e distribuzione carte
+
+            List<Player> giocatori = new List<Player>();
+
             Player p1 = new Player();
             Player p2 = new Player();
-            for(int i = 0; i < 3; i++)
+            p1.name = "Giocatore 1";
+            p2.name = "Giocatore 2";
+
+            giocatori.Add(p1);
+            giocatori.Add(p2);
+
+            for (int i = 0; i < 3; i++)
             {
                 p1.Pesca(Mazzo);
                 p2.Pesca(Mazzo);
             }
 
+            Console.WriteLine("Il mazzo è stato mescolato e le carte sono state distribuite, inizia la partita");
 
+            Turno t = new Turno(briscola.getSeed());
+            Player p = new Player();
+            //Inizio alternanza turni
+            while (p1.mano.Count() != 0 || p2.mano.Count() != 0 || Mazzo.Count() != 0)
+            {
+                Console.WriteLine("La briscola è {0}", briscola.StringVideo());
+
+                tempIndex = t.checkTavolo();
+                while (!giocatori[tempIndex].turno)
+                {
+                    Console.WriteLine(t.getTavolo());
+                    giocatori[tempIndex].Cala(t.tavolo);
+                    giocatori[tempIndex].turno = true;
+                    tempIndex++;
+                    if (tempIndex >= giocatori.Count())
+                        tempIndex = 0;
+                }
+                for (int i = 0; i < giocatori.Count(); i++)
+                    giocatori[i].turno = false;
+                tempIndex = t.checkTavolo();
+                t.assegnazioneCarte(giocatori[tempIndex]);
+
+                t.cartaTurno(giocatori, Mazzo, tempIndex);
+
+                Console.WriteLine("Punteggio giocatore 1");
+                p1.getFinalScore();
+                Console.WriteLine("Punteggio giocatore 2");
+                p2.getFinalScore();
+            }
         }
     }
-}
+} 

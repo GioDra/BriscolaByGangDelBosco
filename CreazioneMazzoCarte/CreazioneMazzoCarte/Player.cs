@@ -8,8 +8,10 @@ namespace CreazioneMazzoCarte
 {
     class Player
     {
+        public String name="";
         public List<CartaBriscola> mano = new List<CartaBriscola>();
         public List<CartaBriscola> cartePrese = new List<CartaBriscola>();
+        public bool turno = false;
         private int finalScore;
 
         public void getMano()
@@ -28,6 +30,7 @@ namespace CreazioneMazzoCarte
                 Console.WriteLine(c.StringVideo());
             }
         }
+        
 
         public Player()
         {
@@ -54,11 +57,35 @@ namespace CreazioneMazzoCarte
             return 0;
         }
 
+        public void Cala(List<CartaBriscola> tavolo)
+        {
+            if (mano != null)
+            {
+                int input = -1;
+                while (input < 0 || input > 2)
+                {
+                    Console.WriteLine(name);
+                    Console.WriteLine("Scegli quale carta giocare digitando un numero da 1 a 3");
+                    getMano();
+                    input = (Convert.ToInt32(Console.ReadLine()))-1;
+                }
+                tavolo.Add(mano[input]);
+                mano.RemoveAt(input);
+            }
+        }
+
+        public int getFinalScore()
+        {
+            int x = 0;
+            foreach (CartaBriscola c in cartePrese)
+                x += c.getScore();
+            return x;
+        }
+
         public override string ToString()
         {
             return base.ToString();
         }
-
-
+        
     }
 }
