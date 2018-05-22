@@ -12,18 +12,9 @@ namespace CreazioneMazzoCarte
 
         static void Main(string[] args)
         {
-            List<Carta> CardsPack = new List<Carta>();
-            RaccoltaCarte(CardsPack);
+            Mazzo m = new Mazzo();
 
-            List<CartaBriscola> Mazzo = new List<CartaBriscola>();
-            //CreaMazzo(CardsPack, Mazzo);
-
-            ////Stampa provvisoria per controllo set di carte
-            //foreach (Carta ci in Mazzo)
-            //{
-            //    Console.WriteLine(ci.ToString());
-            //}
-            Partita(CardsPack,Mazzo);
+            Partita(m);
 
             Console.ReadLine();
         }
@@ -72,13 +63,7 @@ namespace CreazioneMazzoCarte
                     CardsPack.Add(new Carta(k, name, temp_seed));
                 }
             }
-
-            ////Stampa provvisoria per controllo set di carte
-            //foreach(Carta c in CardsPack)
-            //{
-            //    Console.WriteLine(c.ToString());
-            //}
-            //Console.ReadLine();
+            
         }
 
         static void Mescola(List<Carta> CardsPack)
@@ -97,74 +82,37 @@ namespace CreazioneMazzoCarte
             }
         }
         
-        static void CreaMazzo(List<Carta> CardsPack, List<CartaBriscola> Mazzo)
+
+        static void Partita(Mazzo m)
         {
-            Mescola(CardsPack);
-            foreach (Carta ci in CardsPack)
-            {
-                Mazzo.Add(new CartaBriscola(ci));
-            }
 
-            CartaBriscola c;
-            for (int i = 0; i < Mazzo.Count(); i++)
-            {
-                c = Mazzo[i];
-                if (c.getValue() == 3)
-                {
-                    c.setValue(11);
-                    Mazzo[i] = c;
-
-                }
-
-                if (c.getValue() == 1)
-                {
-                    c.setValue(12);
-                    Mazzo[i] = c;
-                }
-                i++;
-            }
-        }
-
-        static void Partita(List<Carta> CardsPack, List<CartaBriscola> Mazzo)
-        {
-            CreaMazzo(CardsPack, Mazzo);
-            CartaBriscola briscola = new CartaBriscola();
-
+            CartaBriscola briscola = m.getBriscola();
             int tempIndex = 0;              //Indice temporaneo
-
-            //Estrazione della briscola
-            Random rnd = new Random();
-            tempIndex = rnd.Next(0, (CardsPack.Count() - 1));
-            briscola = Mazzo[tempIndex];
-            Mazzo.RemoveAt(tempIndex);
-            Mazzo.Add(briscola);
-
-
-
+            
             //Inizializzazione giocatori e distribuzione carte
 
             List<Player> giocatori = new List<Player>();
 
             Player p1 = new Player();
             Player p2 = new Player();
-            p1.name = "Giocatore 1";
-            p2.name = "Giocatore 2";
+            p1.nome = "Giocatore 1";
+            p2.nome = "Giocatore 2";
 
             giocatori.Add(p1);
             giocatori.Add(p2);
 
             for (int i = 0; i < 3; i++)
             {
-                p1.Pesca(Mazzo);
-                p2.Pesca(Mazzo);
+                p1.Pesca(m.MazzoB);
+                p2.Pesca(m.MazzoB);
             }
 
             Console.WriteLine("Il mazzo è stato mescolato e le carte sono state distribuite, inizia la partita");
 
             Turno t = new Turno(briscola.getSeed());
-            Player p = new Player();
+
             //Inizio alternanza turni
-            while (p1.mano.Count() != 0 || p2.mano.Count() != 0 || Mazzo.Count() != 0)
+            while (p1.mano.Count() != 0 || p2.mano.Count() != 0 || m.MazzoB.Count() != 0)
             {
                 Console.WriteLine("La briscola è {0}", briscola.StringVideo());
 
@@ -183,13 +131,12 @@ namespace CreazioneMazzoCarte
                 tempIndex = t.checkTavolo();
                 t.assegnazioneCarte(giocatori[tempIndex]);
 
-                t.cartaTurno(giocatori, Mazzo, tempIndex);
+                t.cartaTurno(giocatori, m.MazzoB, tempIndex);
 
-                Console.WriteLine("Punteggio giocatore 1");
-                p1.getFinalScore();
-                Console.WriteLine("Punteggio giocatore 2");
-                p2.getFinalScore();
             }
+
+            for (int i = 0; i < giocatori.Count(); i++)
+                Console.WriteLine(giocatori[i].getFinalScoreStr());
         }
     }
 } 

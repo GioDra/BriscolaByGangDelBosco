@@ -52,7 +52,7 @@ namespace CreazioneMazzoCarte
         }
         public void assegnazioneCarte(Player p)
         {
-            Console.WriteLine("Complimenti {0} hai vinto questa mano", p.name);
+            Console.WriteLine("Complimenti {0} hai vinto questa mano", p.nome);
             foreach (CartaBriscola c in tavolo)
             {
                 p.cartePrese.Add(c);
