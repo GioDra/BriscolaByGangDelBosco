@@ -8,7 +8,17 @@ namespace CreazioneMazzoCarte
 {
     class CartaBriscola : Carta
     {
-        private int score;
+        private int score;      //Valore del punteggio ottenibile con questa carta
+
+        public int getScore()
+        {
+            return score;
+        }
+
+        public CartaBriscola()
+        {
+
+        }
 
         public CartaBriscola(Carta c)
         {
@@ -39,9 +49,15 @@ namespace CreazioneMazzoCarte
             }
         }
 
+
         public override string ToString()
         {
-            return base.ToString()+" "+score;
+            return base.ToString() + " " + score;
+        }
+
+        public string StringVideo()
+        {
+            return name + " " + seed+"\t ";
         }
     }
 }

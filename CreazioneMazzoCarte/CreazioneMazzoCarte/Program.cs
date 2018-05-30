@@ -12,17 +12,10 @@ namespace CreazioneMazzoCarte
 
         static void Main(string[] args)
         {
-            List<Carta> CardsPack = new List<Carta>();
-            RaccoltaCarte(CardsPack);
+            Mazzo m = new Mazzo();
 
-            List<CartaBriscola> Mazzo = new List<CartaBriscola>();
-            CreaMazzo(CardsPack, Mazzo);
+            Partita(m);
 
-            //Stampa provvisoria per controllo set di carte
-            foreach (Carta ci in Mazzo)
-            {
-                Console.WriteLine(ci.ToString());
-            }
             Console.ReadLine();
         }
 
@@ -70,13 +63,7 @@ namespace CreazioneMazzoCarte
                     CardsPack.Add(new Carta(k, name, temp_seed));
                 }
             }
-
-            ////Stampa provvisoria per controllo set di carte
-            //foreach(Carta c in CardsPack)
-            //{
-            //    Console.WriteLine(c.ToString());
-            //}
-            //Console.ReadLine();
+            
         }
 
         static void Mescola(List<Carta> CardsPack)
@@ -95,33 +82,61 @@ namespace CreazioneMazzoCarte
             }
         }
         
-        static void CreaMazzo(List<Carta> CardsPack, List<CartaBriscola> Mazzo)
+
+        static void Partita(Mazzo m)
         {
-            Mescola(CardsPack);
-            foreach (Carta ci in CardsPack)
+
+            CartaBriscola briscola = m.getBriscola();
+            int tempIndex = 0;              //Indice temporaneo
+            
+            //Inizializzazione giocatori e distribuzione carte
+
+            List<Player> giocatori = new List<Player>();
+
+            Player p1 = new Player();
+            Player p2 = new Player();
+            p1.nome = "Giocatore 1";
+            p2.nome = "Giocatore 2";
+
+            giocatori.Add(p1);
+            giocatori.Add(p2);
+
+            for (int i = 0; i < 3; i++)
             {
-                Mazzo.Add(new CartaBriscola(ci));
+                p1.Pesca(m.MazzoB);
+                p2.Pesca(m.MazzoB);
             }
 
-            CartaBriscola c;
-            for (int i = 0; i < Mazzo.Count(); i++)
+            Console.WriteLine("Il mazzo è stato mescolato e le carte sono state distribuite, inizia la partita");
+
+            Turno t = new Turno(briscola.getSeed());
+
+            //Inizio alternanza turni
+            while (p1.mano.Count() != 0 || p2.mano.Count() != 0 || m.MazzoB.Count() != 0)
             {
-                c = Mazzo[i];
-                if (c.getValue() == 3)
-                {
-                    c.setValue(11);
-                    Mazzo[i] = c;
+                Console.WriteLine("La briscola è {0}", briscola.StringVideo());
 
-                }
-
-                if (c.getValue() == 1)
+                tempIndex = t.checkTavolo();
+                while (!giocatori[tempIndex].turno)
                 {
-                    c.setValue(12);
-                    Mazzo[i] = c;
+                    Console.WriteLine(t.getTavolo());
+                    giocatori[tempIndex].Cala(t.tavolo);
+                    giocatori[tempIndex].turno = true;
+                    tempIndex++;
+                    if (tempIndex >= giocatori.Count())
+                        tempIndex = 0;
                 }
-                i++;
+                for (int i = 0; i < giocatori.Count(); i++)
+                    giocatori[i].turno = false;
+                tempIndex = t.checkTavolo();
+                t.assegnazioneCarte(giocatori[tempIndex]);
+
+                t.cartaTurno(giocatori, m.MazzoB, tempIndex);
+
             }
+
+            for (int i = 0; i < giocatori.Count(); i++)
+                Console.WriteLine(giocatori[i].getFinalScoreStr());
         }
-
     }
-}
+} 
